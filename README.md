@@ -37,9 +37,9 @@ Execution is the trust boundary.
 
 Every proposed action must satisfy three conditions before execution:
 
-1. **Explicit Authority** — Authority must be declared and machine-verifiable.  
-2. **Valid Authority** — Authority must be cryptographically or policy-valid.  
-3. **Scoped Authority** — Authority must be within defined capability bounds.
+1. **Explicit Authority** - Authority must be declared and machine-verifiable.  
+2. **Valid Authority** - Authority must be cryptographically or policy-valid.  
+3. **Scoped Authority** - Authority must be within defined capability bounds.
 
 If any condition fails, execution is denied.
 
