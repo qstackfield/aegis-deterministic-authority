@@ -42,9 +42,9 @@ This is Zero Trust applied to AI execution:
 
 Every proposed action must satisfy three conditions before execution proceeds:
 
-1. **Explicit Authority** — Authority must be declared and machine-verifiable.
-2. **Valid Authority** — Authority must be cryptographically or policy-valid at the moment of execution.
-3. **Scoped Authority** — Authority must fall within defined capability bounds for this agent, this context, this action.
+1. **Explicit Authority** - Authority must be declared and machine-verifiable.
+2. **Valid Authority** - Authority must be cryptographically or policy-valid at the moment of execution.
+3. **Scoped Authority** - Authority must fall within defined capability bounds for this agent, this context, this action.
 
 If any condition fails, execution is denied.  
 Not delayed. Not logged for review. Denied.
@@ -109,9 +109,9 @@ Every one of these environments has a boundary where an irreversible action eith
 That boundary is where architecture either protects you — or doesn't.
 
 Current approaches govern at the wrong layer:
-- **Provider alignment** — evaluates at training time
-- **Output monitoring** — evaluates after execution
-- **Policy documentation** — evaluates at design time
+- **Provider alignment** - evaluates at training time
+- **Output monitoring** - evaluates after execution
+- **Policy documentation** - evaluates at design time
 
 None of them evaluate at the moment that matters: **before execution.**
 
