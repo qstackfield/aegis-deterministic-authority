@@ -1,82 +1,121 @@
 # Aegis
-
 **Deterministic Execution-Time Authority for Confidential AI Systems**
 
-Aegis formalizes a missing systems layer in AI deployments: execution-time authority arbitration.
+---
 
-Large language models can generate structured plans, tool calls, and state-modifying commands. Trusted Execution Environments (TEEs) protect confidentiality and integrity of computation. However, neither model alignment nor enclave isolation determines whether a generated action is *authorized* to execute.
+## The Problem
 
-Aegis enforces a strict invariant:
+Trusted Execution Environments protect confidentiality and integrity of computation.  
+Model alignment attempts to constrain model behavior at the reasoning layer.  
+Neither solves the actual problem.
+
+**Confidential computing proves computation happened. It does not prove it was authorized.**
+
+As AI agents gain the ability to call external APIs, access credentials, modify state, move value, and orchestrate autonomous workflows — the primary risk surface shifts from model output to action execution.
+
+A model inside a TEE can still:
+- Hallucinate a valid-looking tool call
+- Execute a prompt-injected instruction
+- Self-authorize an action it was never permitted to take
+
+The enclave does not know the difference. Neither does alignment.
+
+**Execution is the trust boundary. And it has no governor.**
+
+---
+
+## The Principle
 
 > No action executes without explicit, valid, and scoped authority at the moment of execution.
 
-The model may propose actions.  
-It does not authorize them.
+This is not a monitoring principle. It is an enforcement invariant.
 
-## Motivation
+The model proposes. It does not authorize.  
+Authorization is resolved deterministically, before side effects occur, by a layer the model cannot influence.
 
-As AI systems gain the ability to:
+This is Zero Trust applied to AI execution:  
+**Never trust the model's intent. Always verify authority at the commit point.**
 
-- call external APIs  
-- access credentials  
-- modify state  
-- move value  
-- orchestrate autonomous workflows  
+---
 
-the primary risk surface shifts from model output to action execution.
+## The Execution Invariant
 
-Prompt filtering and alignment heuristics operate at the reasoning layer.  
-Risk materializes at the execution boundary.
+Every proposed action must satisfy three conditions before execution proceeds:
 
-Confidential computing ensures that data cannot be inspected.  
-It does not define who is allowed to execute which operations.
+1. **Explicit Authority** — Authority must be declared and machine-verifiable.
+2. **Valid Authority** — Authority must be cryptographically or policy-valid at the moment of execution.
+3. **Scoped Authority** — Authority must fall within defined capability bounds for this agent, this context, this action.
 
-Execution is the trust boundary.
+If any condition fails, execution is denied.  
+Not delayed. Not logged for review. Denied.
 
-## Execution Invariant
+The model has no control over this decision path.
 
-Every proposed action must satisfy three conditions before execution:
+---
 
-1. **Explicit Authority** - Authority must be declared and machine-verifiable.  
-2. **Valid Authority** - Authority must be cryptographically or policy-valid.  
-3. **Scoped Authority** - Authority must be within defined capability bounds.
+## System Architecture
 
-If any condition fails, execution is denied.
+```
+Model Output (Action Proposal)
+        ↓
+Execution Intercept Layer
+        ↓
+Authority Engine (deterministic)
+   ├── Identity verification
+   ├── Capability scope check
+   └── Contextual policy evaluation
+        ↓
+Decision: allow / escalate / block
+        ↓
+TEE-Attested Execution (if allowed)
+        ↓
+Append-only Audit DAG
+```
 
-The language model has no control over this decision path.
+Authorization logic is:
+- Isolated from model reasoning
+- Evaluated deterministically
+- Model-agnostic
+- TEE-compatible
+- Fully replayable
 
-Authorization logic is isolated from model reasoning and evaluated deterministically.
+---
 
-## System Model
-
-Aegis introduces an execution-time authorization fork:
-
-1. The model emits a structured action proposal.
-2. The proposal is intercepted before side effects occur.
-3. A deterministic authority engine evaluates:
-   - identity
-   - capability scope
-   - contextual policy constraints
-4. The system returns one of:
-   - allow
-   - escalate
-   - block
-
-The enforcement layer is model-agnostic and compatible with TEE deployment.
-
-## Security Position
+## Security Assumptions
 
 Aegis assumes:
-
-- Models are capable of hallucination.
-- Models may emit invalid or unsafe commands.
-- TEEs protect computation but do not encode authorization semantics.
+- Models are capable of hallucination
+- Models may emit invalid, unsafe, or injected commands
+- TEEs protect computation but do not encode authorization semantics
+- Prompt injection and alignment failures are structural, not edge cases
 
 Aegis does not attempt to improve model alignment.
 
-Instead, it removes the model’s ability to self-authorize execution.
+Instead, it removes the model's ability to self-authorize execution.  
+Prompt injection and hallucinated commands become structurally irrelevant at the execution boundary — because the model never had authorization authority to begin with.
 
-By separating reasoning from authority, prompt injection and hallucinated commands become structurally irrelevant at the execution boundary.
+---
+
+## Why This Matters Now
+
+AI agents are moving into high-stakes environments:
+- Financial transactions
+- Infrastructure changes
+- Identity and access management
+- Autonomous downstream workflows
+
+Every one of these environments has a boundary where an irreversible action either commits or refuses.
+
+That boundary is where architecture either protects you — or doesn't.
+
+Current approaches govern at the wrong layer:
+- **Provider alignment** — evaluates at training time
+- **Output monitoring** — evaluates after execution
+- **Policy documentation** — evaluates at design time
+
+None of them evaluate at the moment that matters: **before execution.**
+
+---
 
 ## Research Direction
 
@@ -84,10 +123,20 @@ This repository explores:
 
 - Deterministic execution-time governance inside TEEs
 - Capability-scoped authority models for AI agents
-- Separation of reasoning and authorization
+- Separation of reasoning and authorization as a security primitive
 - Formalization of execution invariants for autonomous systems
+- Hardware-enforced authority gates as a complement to software governance
 
-Confidential AI requires more than data protection.
+---
 
-It requires enforceable authority at the moment action occurs.
+## Relationship to Broader Framework
 
+Aegis is the TEE-native implementation of the Authority-Before-Execution (ABE) framework, extending it into confidential computing environments.
+
+It operationalizes the principle that governed execution requires authority resolution — not just computation integrity — at the moment of action.
+
+**Confidential AI requires more than data protection. It requires enforceable authority at the moment action occurs.**
+
+---
+
+*Atom Labs | Patent Pending US 63/958,209 | ORCID: 0009-0002-7377-4165*
