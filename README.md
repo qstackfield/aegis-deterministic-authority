@@ -11,7 +11,7 @@ Neither solves the actual problem.
 
 **Confidential computing proves computation happened. It does not prove it was authorized.**
 
-As AI agents gain the ability to call external APIs, access credentials, modify state, move value, and orchestrate autonomous workflows — the primary risk surface shifts from model output to action execution.
+As AI agents gain the ability to call external APIs, access credentials, modify state, move value, and orchestrate autonomous workflows. The primary risk surface shifts from model output to action execution.
 
 A model inside a TEE can still:
 - Hallucinate a valid-looking tool call
