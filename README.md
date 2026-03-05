@@ -139,7 +139,7 @@ Aegis assumes:
 - Models may emit invalid, unsafe, or injected commands
 - TEEs protect computation but do not encode authorization semantics
 - Prompt injection and alignment failures are structural, not edge cases
-- Budget caps and acceptance thresholds contain errors — they do not prevent unauthorized execution
+- Budget caps and acceptance thresholds contain errors - they do not prevent unauthorized execution
 
 Aegis does not attempt to improve model alignment or replace TEE security.
 
