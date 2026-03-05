@@ -133,7 +133,7 @@ This repository explores:
 
 Aegis is the TEE-native implementation of the Authority-Before-Execution (ABE) framework, extending it into confidential computing environments.
 
-It operationalizes the principle that governed execution requires authority resolution - not just computation integrity — at the moment of action.
+It operationalizes the principle that governed execution requires authority resolution - not just computation integrity - at the moment of action.
 
 **Confidential AI requires more than data protection. It requires enforceable authority at the moment action occurs.**
 
