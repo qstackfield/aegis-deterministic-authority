@@ -1,20 +1,20 @@
 # Aegis
 **Deterministic Execution-Time Authority for Confidential AI Systems**
 
-> Shape Rotator Virtual Hackathon — Track: TEE & AI-Enabled Applications  
+> Shape Rotator Virtual Hackathon - Track: TEE & AI-Enabled Applications  
 > Challenges: NDAI Agreements · Conditional Recall
 
 ---
 
 ## The Problem
 
-The NDAI paper (Stephenson, Miller et al., 2025) proves something important: TEEs combined with AI agents can solve Arrow's disclosure-expropriation paradox. An inventor can safely reveal their idea inside a TEE, bargain with a buyer's agent, and receive payment — all without risking theft.
+The NDAI paper (Stephenson, Miller et al., 2025) proves something important: TEEs combined with AI agents can solve Arrow's disclosure-expropriation paradox. An inventor can safely reveal their idea inside a TEE, bargain with a buyer's agent, and receive payment - all without risking theft.
 
 But the paper explicitly acknowledges a structural gap:
 
 > *"Recognizing that real AI agents are imperfect, we model 'agent errors' in payments or disclosures."*
 
-Their solution to imperfect agents is budget caps and acceptance thresholds — mechanical guardrails that contain errors after they occur.
+Their solution to imperfect agents is budget caps and acceptance thresholds - mechanical guardrails that contain errors after they occur.
 
 **Aegis addresses the gap before errors occur.**
 
@@ -48,9 +48,9 @@ Never trust the agent's intent. Always verify authority at the commit point.
 
 Every proposed agent action must satisfy three conditions before execution proceeds:
 
-1. **Explicit Authority** — Authority must be declared and machine-verifiable.
-2. **Valid Authority** — Authority must be cryptographically or policy-valid at the moment of execution.
-3. **Scoped Authority** — Authority must fall within defined capability bounds for this agent, this context, this action.
+1. **Explicit Authority** - Authority must be declared and machine-verifiable.
+2. **Valid Authority** - Authority must be cryptographically or policy-valid at the moment of execution.
+3. **Scoped Authority** - Authority must fall within defined capability bounds for this agent, this context, this action.
 
 If any condition fails, execution is denied.  
 Not delayed. Not logged for review. Denied.
@@ -95,7 +95,7 @@ Aegis makes it structurally enforceable, not just probabilistically contained.
 
 ## How Aegis Extends Conditional Recall
 
-Conditional Recall (Sun, Flashbots) solves brokered credential delegation via TEE — users can delegate access to credentials without exposing secrets.
+Conditional Recall (Sun, Flashbots) solves brokered credential delegation via TEE - users can delegate access to credentials without exposing secrets.
 
 The same gap exists: TEE protects the credential. It does not define what the delegated agent is authorized to do with it, under what conditions, or with what scope.
 
@@ -144,7 +144,7 @@ Aegis assumes:
 Aegis does not attempt to improve model alignment or replace TEE security.
 
 It removes the model's ability to self-authorize execution.  
-Prompt injection and hallucinated commands become structurally irrelevant at the execution boundary — because the model never had authorization authority to begin with.
+Prompt injection and hallucinated commands become structurally irrelevant at the execution boundary - because the model never had authorization authority to begin with.
 
 ---
 
@@ -160,23 +160,23 @@ The NDAI paper's disclosure-expropriation framework applies across any high-stak
 
 In every case, the same gap exists. TEEs protect the data. Agents handle the logic. Nobody governs whether the agent's specific action was authorized at the moment it executed.
 
-Aegis is the governance primitive that makes TEE-resident AI agents trustworthy — not by assuming they behave correctly, but by enforcing that they can only execute what they were authorized to execute.
+Aegis is the governance primitive that makes TEE-resident AI agents trustworthy - not by assuming they behave correctly, but by enforcing that they can only execute what they were authorized to execute.
 
 ---
 
 ## Hackathon Deliverables
 
-- [ ] Aegis authority engine core — deterministic allow/escalate/block evaluation
-- [ ] LCAC policy layer — capability-scoped context access control
-- [ ] TEE integration — execution intercept inside confidential compute boundary
-- [ ] NDAI demo — seller and buyer agents attempting authorized and unauthorized disclosure/payment actions, with full enforcement and audit trail
-- [ ] Conditional Recall demo — delegated credential access with scoped authority enforcement
+- [ ] Aegis authority engine core - deterministic allow/escalate/block evaluation
+- [ ] LCAC policy layer - capability-scoped context access control
+- [ ] TEE integration - execution intercept inside confidential compute boundary
+- [ ] NDAI demo - seller and buyer agents attempting authorized and unauthorized disclosure/payment actions, with full enforcement and audit trail
+- [ ] Conditional Recall demo - delegated credential access with scoped authority enforcement
 
 ---
 
 ## Production Validation
 
-The Authority-Before-Execution framework underlying Aegis has been running in production for one year inside VANTA OS — an autonomous capital intelligence system operating across equity, options, and cryptocurrency markets.
+The Authority-Before-Execution framework underlying Aegis has been running in production for one year inside VANTA OS - an autonomous capital intelligence system operating across equity, options, and cryptocurrency markets.
 
 Key production metrics:
 - 100% pre-execution authority resolution
